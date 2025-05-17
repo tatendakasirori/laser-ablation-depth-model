@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error
 
 # 1. 5/16/2025 data x= depth, y= mass
+# Need more data as model is underfitting 
 x = np.array([7, 11, 16, 19, 23, 27, 31, 34, 38, 43]).reshape(-1, 1)
 y = np.array([ 27.4694, 31.1945, 34.8253, 36.3726, 39.6916, 43.0477, 46.2648, 48.8145, 52.2542, 55.7755 ])
 
