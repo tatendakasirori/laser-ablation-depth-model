@@ -4,18 +4,20 @@ from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_squared_error
+import pandas as pd
 
 # 1. 5/16/2025 data x= depth, y= mass
-x = np.array([7, 11, 16, 19, 23, 27, 31, 34, 38, 43]).reshape(-1, 1)
-y = np.array([ 27.4694, 31.1945, 34.8253, 36.3726, 39.6916, 43.0477, 46.2648, 48.8145, 52.2542, 55.7755 ])
+data = pd.read_csv("height_mass_data.csv")
+height = data.height.values.reshape(-1,1)
+mass = data.mass.values
 
 # 2. Split into train/test sets
 x_train, x_test, y_train, y_test = train_test_split(
-    x, y, test_size=0.4, random_state=1
+    height, mass, test_size=0.4, random_state=1
 )
 
 # 3. Build a pipeline: polynomial features + linear regression
-degree = 3
+degree = 2
 model = make_pipeline(
     PolynomialFeatures(degree, include_bias=False),
     LinearRegression()
@@ -43,4 +45,5 @@ print(f"Test   MSE: {mse_test:.4f}")
 #    model.named_steps['linearregression'] is the fitted regressor
 coef = model.named_steps['linearregression'].coef_
 intercept = model.named_steps['linearregression'].intercept_
-print(f"Learned model: y = {intercept:.4f} + ({coef[0]:.4f})x + ({coef[1]:.4f})x^2 + ({coef[2]:.4f})x^3")
+print(f"Learned model: y = {intercept:.10f} + ({coef[0]:.10f})x + ({coef[1]:.10f})x^2")
+
