@@ -7,6 +7,7 @@ from sklearn.metrics import r2_score, mean_squared_error
 import pandas as pd
 
 # 1. 5/16/2025 data x= depth, y= mass
+# Need more data as model is underfitting 
 data = pd.read_csv("height_mass_data.csv")
 height = data.height.values.reshape(-1,1)
 mass = data.mass.values
